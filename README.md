@@ -45,7 +45,7 @@ Please check the included demo project for more options.
 * Ability to change menu position to either left, right, top or bottom.
 
 # Credits
-Thanks to @bryanoltman's [CAAnimation-EasingEquations](https://github.com/bryanoltman/CAAnimation-EasingEquations) for the animation easing function.
+Thanks to [@bryanoltman](https://github.com/bryanoltman/)'s [CAAnimation-EasingEquations](https://github.com/bryanoltman/CAAnimation-EasingEquations) for the animation easing function.
 
 # License
 HMSideMenu is licensed under the terms of the MIT License. Please see the [LICENSE](LICENSE.md) file for full details.
