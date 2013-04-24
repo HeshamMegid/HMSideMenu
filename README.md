@@ -3,9 +3,9 @@ HMSideMenu
 
 HMSideMenu allows you to display a menu of items that show from the side of a view controller with a delightful animation. Currently works on the right side only, but left, top and bottom are coming soon.
 
-[![screenshot](screenshot.png)](http://www.youtube.com/watch?v=2dswvXSdDzM)
-
 Check [this video](http://www.youtube.com/watch?v=2dswvXSdDzM) to see how exactly it works.
+
+[![screenshot](screenshot.png)](http://www.youtube.com/watch?v=2dswvXSdDzM)
 
 # Features
 - Menu items are UIView subclasses, so they are fully customizable.
@@ -44,8 +44,10 @@ Please check the included demo project for more options.
 # To do
 * Ability to change menu position to either left, right, top or bottom.
 
-# License
+# Credits
+Thanks to @bryanoltman's [CAAnimation-EasingEquations](https://github.com/bryanoltman/CAAnimation-EasingEquations) for the animation easing function.
 
+# License
 HMSideMenu is licensed under the terms of the MIT License. Please see the [LICENSE](LICENSE.md) file for full details.
 
 If this code was helpful, I would love to hear from you.
