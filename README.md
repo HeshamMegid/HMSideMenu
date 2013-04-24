@@ -3,7 +3,9 @@ HMSideMenu
 
 HMSideMenu allows you to display a menu of items that show from the side of a view controller with a delightful animation. Currently works on the right side only, but left, top and bottom are coming soon.
 
-![screenshot](screenshot.png)
+[![screenshot](screenshot.png)](http://www.youtube.com/watch?v=2dswvXSdDzM)
+
+Check [this video](http://www.youtube.com/watch?v=2dswvXSdDzM) to see how exactly it works.
 
 # Features
 - Menu items are UIView subclasses, so they are fully customizable.
