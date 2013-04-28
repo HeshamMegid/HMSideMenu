@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "HMSideMenuItem.h"
 
+typedef enum {
+    HMSideMenuPositionLeft,
+    HMSideMenuPositionRight,
+    HMSideMenuPositionTop,
+    HMSideMenuPositionBottom
+} HMSideMenuPosition;
+
 @interface HMSideMenu : UIView
 
 /**
@@ -24,12 +31,17 @@
 /**
  Vertical spacing between each menu item and the next.
  */
-@property (nonatomic, assign) CGFloat verticalSpacing;
+@property (nonatomic, assign) CGFloat spacing;
 
 /**
  Duration of the opening/closing animation.
  */
 @property (nonatomic, assign) CGFloat animationDuration;
+
+/**
+ Position the side menu will be added at.
+ */
+@property (nonatomic, assign) HMSideMenuPosition position;
 
 - (id)initWithItems:(NSArray *)items;
 - (void)open;

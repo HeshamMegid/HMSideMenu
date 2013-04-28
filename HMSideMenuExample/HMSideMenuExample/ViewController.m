@@ -56,7 +56,7 @@
     [browserItem addSubview:browserIcon];
 
     self.sideMenu = [[HMSideMenu alloc] initWithItems:@[twitterItem, emailItem, facebookItem, browserItem]];
-    [self.sideMenu setVerticalSpacing:1.0f];
+    [self.sideMenu setSpacing:1.0f];
     [self.view addSubview:self.sideMenu];
 }
 
