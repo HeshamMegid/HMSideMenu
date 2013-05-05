@@ -30,7 +30,7 @@ typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
     if (self) {
         self.items = items;
         _animationDuration = 1.0f;
-        _position = HMSideMenuPositionTop;
+        _position = HMSideMenuPositionRight;
         [self setBackgroundColor:[UIColor grayColor]];
     }
     
@@ -87,31 +87,23 @@ typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
 }
 
 - (void)hideItem:(HMSideMenuItem *)item {
-    if (self.position == HMSideMenuPositionRight) {
+    CGPoint position = item.layer.position;
+    
+    if (self.menuIsVertical) {
+        position.x += self.position == HMSideMenuPositionRight ? self.menuWidth : - self.menuWidth;
+        
         [self animateLayer:item.layer
                withKeyPath:@"position.x"
-                        to:item.layer.position.x + self.menuWidth];
+                        to:position.x];
+    } else {
+        position.y += self.position == HMSideMenuPositionTop ? - self.menuHeight : self.menuHeight;
         
-        item.layer.position = CGPointMake(item.layer.position.x + self.menuWidth, item.layer.position.y);
-    } else if (self.position == HMSideMenuPositionLeft) {
-        [self animateLayer:item.layer
-               withKeyPath:@"position.x"
-                        to:item.layer.position.x - self.menuWidth];
-        
-        item.layer.position = CGPointMake(item.layer.position.x - self.menuWidth, item.layer.position.y);
-    } else if (self.position == HMSideMenuPositionTop) {
         [self animateLayer:item.layer
                withKeyPath:@"position.y"
-                        to:item.layer.position.y - self.menuHeight];
-        
-        item.layer.position = CGPointMake(item.layer.position.x, item.layer.position.y - self.menuHeight);
-    } else if (self.position == HMSideMenuPositionBottom) {
-        [self animateLayer:item.layer
-               withKeyPath:@"position.y"
-                        to:item.layer.position.y + self.menuHeight];
-        
-        item.layer.position = CGPointMake(item.layer.position.x, item.layer.position.y + self.menuHeight);
+                        to:position.y];
     }
+    
+    item.layer.position = position;
 }
 
 - (BOOL)menuIsVertical {
@@ -125,11 +117,9 @@ typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (self.isOpen) {
-        for (HMSideMenuItem *item in self.items)
-            if (CGRectContainsPoint(item.frame, point)) return YES;
-    } else if (!self.isOpen && CGRectContainsPoint(self.frame, point)) {
-        return YES;
+    for (HMSideMenuItem *item in self.items) {
+        if (CGRectContainsPoint(item.frame, point))
+            return YES;
     }
    
     return NO;
@@ -143,17 +133,18 @@ typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
     CGFloat __block biggestHeight = 0;
     CGFloat __block biggestWidth = 0;
     
-    if (self.position == HMSideMenuPositionLeft || self.position == HMSideMenuPositionRight) {
+   // Calculate the menu size
+    if (self.menuIsVertical) {
         [self.items enumerateObjectsUsingBlock:^(HMSideMenuItem *item, NSUInteger idx, BOOL *stop) {
             self.menuWidth = MAX(item.frame.size.width, self.menuWidth);
             biggestHeight = MAX(item.frame.size.height, biggestHeight);
         }];
         
         self.menuHeight = (biggestHeight * self.items.count) + (self.spacing * (self.items.count - 1));
-    } else if (self.position == HMSideMenuPositionTop || self.position == HMSideMenuPositionBottom) {
+    } else { //if (self.position == HMSideMenuPositionTop || self.position == HMSideMenuPositionBottom) {
         [self.items enumerateObjectsUsingBlock:^(HMSideMenuItem *item, NSUInteger idx, BOOL *stop) {
-            biggestWidth = MAX(item.frame.size.width, biggestWidth);
             self.menuHeight = MAX(item.frame.size.height, self.menuHeight);
+            biggestWidth = MAX(item.frame.size.width, biggestWidth);
         }];
         
         self.menuWidth = (biggestWidth * self.items.count) + (self.spacing * (self.items.count - 1));
@@ -162,29 +153,21 @@ typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
     CGFloat x = 0;
     CGFloat y = 0;
     CGFloat itemInitialX = 0;
-    
-    if (self.position == HMSideMenuPositionRight) {
-        x = self.superview.frame.size.width;
+
+    if (self.menuIsVertical) {
+        x = self.position == HMSideMenuPositionRight ? self.superview.frame.size.width : 0 - self.menuWidth;
         y  = (self.superview.frame.size.height / 2) - (self.menuHeight / 2);
         itemInitialX = self.menuWidth / 2;
-    } else if (self.position == HMSideMenuPositionLeft) {
-        x = 0 - self.menuWidth;
-        y = (self.superview.frame.size.height / 2) - (self.menuHeight / 2);
-        itemInitialX = self.menuWidth / 2;
-    } else if (self.position == HMSideMenuPositionTop) {
+    } else {
         x = self.superview.frame.size.width / 2 - (self.menuWidth / 2);
-        y = 0 - self.menuHeight;
-        itemInitialX = 0;
-    } else if (self.position == HMSideMenuPositionBottom) {
-        x = self.superview.frame.size.width / 2 - (self.menuWidth / 2);
-        y = self.superview.frame.size.height;
-        itemInitialX = 0;
+        y = self.position == HMSideMenuPositionTop ? 0 - self.menuHeight : self.superview.frame.size.height;
     }
     
     self.frame = CGRectMake(x, y, self.menuWidth, self.menuHeight);;
     
+    // Layout the items
     [self.items enumerateObjectsUsingBlock:^(HMSideMenuItem *item, NSUInteger idx, BOOL *stop) {
-        if (self.position == HMSideMenuPositionLeft || self.position == HMSideMenuPositionRight)
+        if (self.menuIsVertical)
             [item setCenter:CGPointMake(itemInitialX, (idx * biggestHeight) + (idx * self.spacing) + (biggestHeight / 2))];
         else
             [item setCenter:CGPointMake((idx * biggestWidth) + (idx * self.spacing) + (biggestWidth / 2), self.menuHeight / 2)];
@@ -214,7 +197,6 @@ typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
     }
     
     animation.values = values;
-//    layer.position = CGPointMake(endValue, layer.position.y);
     [layer addAnimation:animation forKey:nil];
 }
 
