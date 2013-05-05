@@ -31,7 +31,7 @@ typedef enum {
 /**
  Vertical spacing between each menu item and the next.
  */
-@property (nonatomic, assign) CGFloat spacing;
+@property (nonatomic, assign) CGFloat itemSpacing;
 
 /**
  Duration of the opening/closing animation.
@@ -41,7 +41,7 @@ typedef enum {
 /**
  Position the side menu will be added at.
  */
-@property (nonatomic, assign) HMSideMenuPosition position;
+@property (nonatomic, assign) HMSideMenuPosition menuPosition;
 
 - (id)initWithItems:(NSArray *)items;
 - (void)open;
