@@ -1,7 +1,7 @@
 HMSideMenu
 ===
 
-HMSideMenu allows you to display a menu of items that show from the side of a view controller with a delightful animation. Currently works on the right side only, but left, top and bottom are coming soon.
+HMSideMenu allows you to display a menu of items that show from the left, right, top or bottom of a view controller with a delightful animation.
 
 Check [this video](http://www.youtube.com/watch?v=2dswvXSdDzM) to see how exactly it works.
 
@@ -40,13 +40,12 @@ Please check the included demo project for more options.
 # Change log
 * v1.1.0
 	* Added left, top and bottom menu positions
-	* Code refactoring
-
+	* Code refactoring	
 * v1.0.0
 	* Initial release
 	
 # To do
-* Support orientation changes.
+* Support for orientation changes.
 
 # Credits
 Thanks to [@bryanoltman](https://github.com/bryanoltman/)'s [CAAnimation-EasingEquations](https://github.com/bryanoltman/CAAnimation-EasingEquations) for the animation easing function.
