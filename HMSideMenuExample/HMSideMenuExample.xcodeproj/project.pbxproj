@@ -17,7 +17,6 @@
 		54A663D117281CF1006E0C2B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A663D017281CF1006E0C2B /* Default@2x.png */; };
 		54A663D317281CF1006E0C2B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A663D217281CF1006E0C2B /* Default-568h@2x.png */; };
 		54A663E417281CFF006E0C2B /* HMSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A663E117281CFF006E0C2B /* HMSideMenu.m */; };
-		54A663E517281CFF006E0C2B /* HMSideMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A663E317281CFF006E0C2B /* HMSideMenuItem.m */; };
 		54A663E917281D34006E0C2B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54A663E817281D34006E0C2B /* ViewController.xib */; };
 		54A663EC17281D4B006E0C2B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A663EB17281D4B006E0C2B /* ViewController.m */; };
 		54A663EE17281D63006E0C2B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A663ED17281D63006E0C2B /* QuartzCore.framework */; };
@@ -47,8 +46,6 @@
 		54A663D217281CF1006E0C2B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		54A663E017281CFF006E0C2B /* HMSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSideMenu.h; sourceTree = "<group>"; };
 		54A663E117281CFF006E0C2B /* HMSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSideMenu.m; sourceTree = "<group>"; };
-		54A663E217281CFF006E0C2B /* HMSideMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSideMenuItem.h; sourceTree = "<group>"; };
-		54A663E317281CFF006E0C2B /* HMSideMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSideMenuItem.m; sourceTree = "<group>"; };
 		54A663E817281D34006E0C2B /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		54A663EA17281D4B006E0C2B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		54A663EB17281D4B006E0C2B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -140,8 +137,6 @@
 			children = (
 				54A663E017281CFF006E0C2B /* HMSideMenu.h */,
 				54A663E117281CFF006E0C2B /* HMSideMenu.m */,
-				54A663E217281CFF006E0C2B /* HMSideMenuItem.h */,
-				54A663E317281CFF006E0C2B /* HMSideMenuItem.m */,
 			);
 			name = HMSideMenu;
 			path = ../../HMSideMenu;
@@ -239,7 +234,6 @@
 				54A663C917281CF1006E0C2B /* main.m in Sources */,
 				54A663CD17281CF1006E0C2B /* AppDelegate.m in Sources */,
 				54A663E417281CFF006E0C2B /* HMSideMenu.m in Sources */,
-				54A663E517281CFF006E0C2B /* HMSideMenuItem.m in Sources */,
 				54A663EC17281D4B006E0C2B /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,6 +349,7 @@
 				54A663DE17281CF1006E0C2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

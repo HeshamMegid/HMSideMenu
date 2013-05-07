@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+//#import "UIView+DTActionHandlers.h"
 
 @interface ViewController ()
 
@@ -18,39 +19,40 @@
 {
     [super viewDidLoad];
     
-    HMSideMenuItem *twitterItem = [[HMSideMenuItem alloc] initWithSize:CGSizeMake(40, 40) action:^{
+    UIView *twitterItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [twitterItem setTapActionWithBlock:^{
         NSLog(@"tapped twitter item");
     }];
-
     UIImageView *twitterIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [twitterIcon setImage:[UIImage imageNamed:@"twitter"]];
     [twitterItem addSubview:twitterIcon];
     
-    HMSideMenuItem *emailItem = [[HMSideMenuItem alloc] initWithSize:CGSizeMake(40, 40) action:^{
+    UIView *emailItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [emailItem setTapActionWithBlock:^{
         NSLog(@"tapped email item");
     }];
-    
     UIImageView *emailIcon = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 30 , 30)];
     [emailIcon setImage:[UIImage imageNamed:@"email"]];
     [emailItem addSubview:emailIcon];
     
-    HMSideMenuItem *facebookItem = [[HMSideMenuItem alloc] initWithSize:CGSizeMake(40, 40) action:^{
+    UIView *facebookItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [facebookItem setTapActionWithBlock:^{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                             message:@"Tapped facebook item"
                                                            delegate:nil
                                                   cancelButtonTitle:@"Okay"
                                                   otherButtonTitles:nil, nil];
         [alertView show];
-    }];
-    
+
+    }];    
     UIImageView *facebookIcon = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 35, 35)];
     [facebookIcon setImage:[UIImage imageNamed:@"facebook"]];
     [facebookItem addSubview:facebookIcon];
     
-    HMSideMenuItem *browserItem = [[HMSideMenuItem alloc] initWithSize:CGSizeMake(40, 40) action:^{
+    UIView *browserItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [browserItem setTapActionWithBlock:^{
         NSLog(@"tapped browser item");
-    }];
-    
+    }];    
     UIImageView *browserIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [browserIcon setImage:[UIImage imageNamed:@"browser"]];
     [browserItem addSubview:browserIcon];

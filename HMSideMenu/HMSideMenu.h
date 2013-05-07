@@ -19,17 +19,17 @@ typedef enum {
 @interface HMSideMenu : UIView
 
 /**
- An array of `HMSideMenuItem` objects. Read only property, hence should be set using the constructor `initWithItems:`.
+ An array of `HMSideMenuItem` objects. Read only property, hence should be set using `initWithItems:`.
  */
 @property (nonatomic, strong, readonly) NSArray *items;
 
 /**
- Side menu is open/closed.
+ Current state of the side menu.
  */
 @property (nonatomic, assign, readonly) BOOL isOpen;
 
 /**
- Vertical spacing between each menu item and the next.
+ Vertical/horizontal Spacing between each menu item and the next.
  */
 @property (nonatomic, assign) CGFloat itemSpacing;
 
@@ -43,8 +43,31 @@ typedef enum {
  */
 @property (nonatomic, assign) HMSideMenuPosition menuPosition;
 
+/**
+ Initialize the menu with an array of items.
+ @param items An array of `HMSideMenuItems`.
+ */
 - (id)initWithItems:(NSArray *)items;
+
+/**
+ Show all menu items with animation.
+ */
 - (void)open;
+
+/**
+ Hide all menu items with animation.
+ */
 - (void)close;
+
+@end
+
+/**
+ A category on UIView to attach a given block as an action for a single tap.
+ Credit: http://www.cocoanetics.com/2012/06/associated-objects/
+ @param block The block to execute.
+ */
+@interface UIView (DTActionHandlers)
+
+- (void)setTapActionWithBlock:(void (^)(void))block;
 
 @end

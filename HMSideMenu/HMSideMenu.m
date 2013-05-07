@@ -8,10 +8,13 @@
 
 #import "HMSideMenu.h"
 #import <QuartzCore/QuartzCore.h>
+#import <objc/runtime.h>
 
 #define kAnimationDelay 0.08
 
 typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
+static char kActionHandlerTapBlockKey;
+static char kActionHandlerTapGestureKey;
 
 @interface HMSideMenu ()
 
@@ -44,7 +47,7 @@ typedef CGFloat (^EasingFunction)(CGFloat, CGFloat, CGFloat, CGFloat);
     
     _items = items;
     
-    for (HMSideMenuItem *item in items) {
+    for (HMSideMenuItem *item in items) {        
         [self addSubview:item];
     }
 }
@@ -224,5 +227,31 @@ static EasingFunction easeOutElastic = ^CGFloat(CGFloat t, CGFloat b, CGFloat c,
     
     return (amplitude * pow(2, -10 * t) * sin((t * d - s) * (2 * M_PI) / period) + c + b);
 };
+
+@end
+
+@implementation UIView (DTActionHandlers)
+
+- (void)setTapActionWithBlock:(void (^)(void))block {
+	UITapGestureRecognizer *gesture = objc_getAssociatedObject(self, &kActionHandlerTapGestureKey);
+	
+	if (!gesture) {
+		gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionForTapGesture:)];
+		[self addGestureRecognizer:gesture];
+		objc_setAssociatedObject(self, &kActionHandlerTapGestureKey, gesture, OBJC_ASSOCIATION_RETAIN);
+	}
+    
+	objc_setAssociatedObject(self, &kActionHandlerTapBlockKey, block, OBJC_ASSOCIATION_COPY);
+}
+
+- (void)handleActionForTapGesture:(UITapGestureRecognizer *)gesture {
+	if (gesture.state == UIGestureRecognizerStateRecognized) {
+		void(^action)(void) = objc_getAssociatedObject(self, &kActionHandlerTapBlockKey);
+		
+		if (action) {
+			action();
+		}
+	}
+}
 
 @end
