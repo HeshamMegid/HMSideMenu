@@ -21,7 +21,8 @@ Check [this video](http://www.youtube.com/watch?v=2dswvXSdDzM) to see it in acti
 # Usage
 
 ```  objective-c
-HMSideMenuItem *twitterItem = [[HMSideMenuItem alloc] initWithSize:CGSizeMake(40, 40) action:^{
+UIView *twitterItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+[twitterItem setTapActionWithBlock:^{
     NSLog(@"tapped twitter item");
 }];
 
@@ -38,6 +39,8 @@ Please check the included demo project for more options.
 
 
 # Change log
+* v1.1.1
+	* Removed HMSideMenuItem. Control is now initialized with an array of UIView objects. To set action block use `[UIView setTapActionWithBlock:]`
 * v1.1.0
 	* Added left, top and bottom menu positions
 	* Code refactoring	

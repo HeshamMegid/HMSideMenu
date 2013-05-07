@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HMSideMenuItem.h"
 
 typedef enum {
     HMSideMenuPositionLeft,
@@ -19,7 +18,7 @@ typedef enum {
 @interface HMSideMenu : UIView
 
 /**
- An array of `HMSideMenuItem` objects. Read only property, hence should be set using `initWithItems:`.
+ An array of `UIView` objects. Read only property, hence should be set using `initWithItems:`.
  */
 @property (nonatomic, strong, readonly) NSArray *items;
 
@@ -45,7 +44,7 @@ typedef enum {
 
 /**
  Initialize the menu with an array of items.
- @param items An array of `HMSideMenuItems`.
+ @param items An array of `UIView` objects.
  */
 - (id)initWithItems:(NSArray *)items;
 

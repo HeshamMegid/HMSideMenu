@@ -41,13 +41,13 @@ static char kActionHandlerTapGestureKey;
 
 - (void)setItems:(NSArray *)items {
     // Remove all current items in case we are changing the menu items.
-    for (HMSideMenuItem *item in items) {
+    for (UIView *item in items) {
         [item removeFromSuperview];
     }
     
     _items = items;
     
-    for (HMSideMenuItem *item in items) {        
+    for (UIView *item in items) {
         [self addSubview:item];
     }
 }
@@ -55,7 +55,7 @@ static char kActionHandlerTapGestureKey;
 - (void)open {
     _isOpen = YES;
     
-    for (HMSideMenuItem *item in self.items) {
+    for (UIView *item in self.items) {
         [self performSelector:@selector(showItem:) withObject:item afterDelay:kAnimationDelay * [self.items indexOfObject:item]];
     }
 }
@@ -63,12 +63,12 @@ static char kActionHandlerTapGestureKey;
 - (void)close {
     _isOpen = NO;
     
-    for (HMSideMenuItem *item in self.items) {
+    for (UIView *item in self.items) {
         [self performSelector:@selector(hideItem:) withObject:item afterDelay:kAnimationDelay * [self.items indexOfObject:item]];
     }
 }
 
-- (void)showItem:(HMSideMenuItem *)item {
+- (void)showItem:(UIView *)item {
     CGPoint position = item.layer.position;
     
     if (self.menuIsVertical) {
@@ -88,7 +88,7 @@ static char kActionHandlerTapGestureKey;
     item.layer.position = position;
 }
 
-- (void)hideItem:(HMSideMenuItem *)item {
+- (void)hideItem:(UIView *)item {
     CGPoint position = item.layer.position;
     
     if (self.menuIsVertical) {
@@ -119,7 +119,7 @@ static char kActionHandlerTapGestureKey;
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    for (HMSideMenuItem *item in self.items) {
+    for (UIView *item in self.items) {
         if (CGRectContainsPoint(item.frame, point))
             return YES;
     }
@@ -137,14 +137,14 @@ static char kActionHandlerTapGestureKey;
     
    // Calculate the menu size
     if (self.menuIsVertical) {
-        [self.items enumerateObjectsUsingBlock:^(HMSideMenuItem *item, NSUInteger idx, BOOL *stop) {
+        [self.items enumerateObjectsUsingBlock:^(UIView *item, NSUInteger idx, BOOL *stop) {
             self.menuWidth = MAX(item.frame.size.width, self.menuWidth);
             biggestHeight = MAX(item.frame.size.height, biggestHeight);
         }];
         
         self.menuHeight = (biggestHeight * self.items.count) + (self.itemSpacing * (self.items.count - 1));
     } else { //if (self.position == HMSideMenuPositionTop || self.position == HMSideMenuPositionBottom) {
-        [self.items enumerateObjectsUsingBlock:^(HMSideMenuItem *item, NSUInteger idx, BOOL *stop) {
+        [self.items enumerateObjectsUsingBlock:^(UIView *item, NSUInteger idx, BOOL *stop) {
             self.menuHeight = MAX(item.frame.size.height, self.menuHeight);
             biggestWidth = MAX(item.frame.size.width, biggestWidth);
         }];
@@ -168,7 +168,7 @@ static char kActionHandlerTapGestureKey;
     self.frame = CGRectMake(x, y, self.menuWidth, self.menuHeight);;
     
     // Layout the items
-    [self.items enumerateObjectsUsingBlock:^(HMSideMenuItem *item, NSUInteger idx, BOOL *stop) {
+    [self.items enumerateObjectsUsingBlock:^(UIView *item, NSUInteger idx, BOOL *stop) {
         if (self.menuIsVertical)
             [item setCenter:CGPointMake(itemInitialX, (idx * biggestHeight) + (idx * self.itemSpacing) + (biggestHeight / 2))];
         else
