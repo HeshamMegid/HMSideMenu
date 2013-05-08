@@ -18,6 +18,11 @@ static char kActionHandlerTapGestureKey;
 
 @interface HMSideMenu ()
 
+/**
+ An array of `UIView` objects. Read only property, hence should be set using `initWithItems:`.
+ */
+@property (nonatomic, strong, readonly) NSArray *items;
+
 @property (nonatomic, assign) CGFloat menuWidth;
 @property (nonatomic, assign) CGFloat menuHeight;
 
@@ -230,9 +235,11 @@ static EasingFunction easeOutElastic = ^CGFloat(CGFloat t, CGFloat b, CGFloat c,
 
 @end
 
-@implementation UIView (DTActionHandlers)
+#pragma mark - UIView+MenuActionHandlers
 
-- (void)setTapActionWithBlock:(void (^)(void))block {
+@implementation UIView (MenuActionHandlers)
+
+- (void)setMenuActionWithBlock:(void (^)(void))block {
 	UITapGestureRecognizer *gesture = objc_getAssociatedObject(self, &kActionHandlerTapGestureKey);
 	
 	if (!gesture) {

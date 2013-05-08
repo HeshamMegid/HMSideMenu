@@ -20,7 +20,7 @@
     [super viewDidLoad];
     
     UIView *twitterItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [twitterItem setTapActionWithBlock:^{
+    [twitterItem setMenuActionWithBlock:^{
         NSLog(@"tapped twitter item");
     }];
     UIImageView *twitterIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -28,7 +28,7 @@
     [twitterItem addSubview:twitterIcon];
     
     UIView *emailItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [emailItem setTapActionWithBlock:^{
+    [emailItem setMenuActionWithBlock:^{
         NSLog(@"tapped email item");
     }];
     UIImageView *emailIcon = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 30 , 30)];
@@ -36,7 +36,7 @@
     [emailItem addSubview:emailIcon];
     
     UIView *facebookItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [facebookItem setTapActionWithBlock:^{
+    [facebookItem setMenuActionWithBlock:^{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                             message:@"Tapped facebook item"
                                                            delegate:nil
@@ -50,7 +50,7 @@
     [facebookItem addSubview:facebookIcon];
     
     UIView *browserItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [browserItem setTapActionWithBlock:^{
+    [browserItem setMenuActionWithBlock:^{
         NSLog(@"tapped browser item");
     }];    
     UIImageView *browserIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
