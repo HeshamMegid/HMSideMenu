@@ -47,6 +47,7 @@ static char kActionHandlerTapGestureKey;
 - (void)setItems:(NSArray *)items {
     // Remove all current items in case we are changing the menu items.
     for (UIView *item in items) {
+        item.layer.opacity = 0;
         [item removeFromSuperview];
     }
     
@@ -74,6 +75,9 @@ static char kActionHandlerTapGestureKey;
 }
 
 - (void)showItem:(UIView *)item {
+   [NSObject cancelPreviousPerformRequestsWithTarget:item.layer];
+    item.layer.opacity = 1.0f;
+    
     CGPoint position = item.layer.position;
     
     if (self.menuIsVertical) {
@@ -111,6 +115,8 @@ static char kActionHandlerTapGestureKey;
     }
     
     item.layer.position = position;
+    
+    [item.layer performSelector:@selector(setOpacity:) withObject:[NSNumber numberWithFloat:0.0f] afterDelay:0.5]; 
 }
 
 - (BOOL)menuIsVertical {
@@ -122,8 +128,7 @@ static char kActionHandlerTapGestureKey;
 
 #pragma mark - UIView
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
-{
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     for (UIView *item in self.items) {
         if (CGRectContainsPoint(item.frame, point))
             return YES;
