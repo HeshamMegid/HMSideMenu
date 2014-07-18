@@ -54,6 +54,9 @@ typedef enum {
  */
 - (void)close;
 
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
+
 @end
 
 ///--------------------------------

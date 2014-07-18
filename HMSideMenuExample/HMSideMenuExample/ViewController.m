@@ -69,4 +69,9 @@
         [self.sideMenu open];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self.sideMenu layoutSubviews];
+}
+
 @end
