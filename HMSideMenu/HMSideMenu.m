@@ -26,6 +26,8 @@ static char kActionHandlerTapGestureKey;
 @property (nonatomic, assign) CGFloat menuWidth;
 @property (nonatomic, assign) CGFloat menuHeight;
 
+@property (nonatomic, assign) BOOL isLayoutItems;
+
 - (BOOL)menuIsVertical;
 
 @end
@@ -39,6 +41,7 @@ static char kActionHandlerTapGestureKey;
         self.items = items;
         _animationDuration = 1.3f;
         _menuPosition = HMSideMenuPositionRight;
+        _isLayoutItems = FALSE;
     }
     
     return self;
@@ -190,7 +193,7 @@ static char kActionHandlerTapGestureKey;
     
     self.frame = CGRectMake(x, y, self.menuWidth, self.menuHeight);;
     
-    if (!_isOpen) {
+    if (!_isLayoutItems) {
         // Layout the items
         [self.items enumerateObjectsUsingBlock:^(UIView *item, NSUInteger idx, BOOL *stop) {
             if (self.menuIsVertical)
@@ -198,6 +201,7 @@ static char kActionHandlerTapGestureKey;
             else
                 [item setCenter:CGPointMake((idx * biggestWidth) + (idx * self.itemSpacing) + (biggestWidth / 2), self.menuHeight / 2)];
         }];
+        _isLayoutItems = TRUE;
     }
 }
 
