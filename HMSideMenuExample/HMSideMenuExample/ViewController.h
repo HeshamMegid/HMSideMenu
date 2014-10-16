@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "HMSideMenu.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UIGestureRecognizerDelegate>
+{
+    CGFloat _centerX;
 
+}
 @property (nonatomic, assign) BOOL menuIsVisible;
 @property (nonatomic, strong) HMSideMenu *sideMenu;
 
 - (IBAction)toggleMenu:(id)sender;
 
+- (IBAction)slide:(id)sender;
 @end
