@@ -227,7 +227,7 @@ static EasingFunction easeOutElastic = ^CGFloat(CGFloat t, CGFloat b, CGFloat c,
         period = d * .3;
     }
     
-    if (amplitude < abs(c)) {
+    if (amplitude < fabs(c)) {
         amplitude = c;
         s = period / 4;
     }
