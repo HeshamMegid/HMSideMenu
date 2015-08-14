@@ -69,4 +69,8 @@
         [self.sideMenu open];
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self.sideMenu layoutSubviews];
+}
+
 @end

@@ -26,6 +26,8 @@ static char kActionHandlerTapGestureKey;
 @property (nonatomic, assign) CGFloat menuWidth;
 @property (nonatomic, assign) CGFloat menuHeight;
 
+@property (nonatomic, assign) BOOL isLayoutItems;
+
 - (BOOL)menuIsVertical;
 
 @end
@@ -39,6 +41,7 @@ static char kActionHandlerTapGestureKey;
         self.items = items;
         _animationDuration = 1.3f;
         _menuPosition = HMSideMenuPositionRight;
+        _isLayoutItems = FALSE;
     }
     
     return self;
@@ -166,24 +169,40 @@ static char kActionHandlerTapGestureKey;
     CGFloat y = 0;
     CGFloat itemInitialX = 0;
 
+    CGFloat superViewWidth = 0;
+    CGFloat superViewHeight = 0;
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation ==UIInterfaceOrientationPortraitUpsideDown) {
+        superViewWidth = self.superview.frame.size.width;
+        superViewHeight = self.superview.frame.size.height;
+    }else if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft || interfaceOrientation ==UIInterfaceOrientationLandscapeRight) {
+        superViewWidth = self.superview.frame.size.height;
+        superViewHeight = self.superview.frame.size.width;
+    }
+    
+    
     if (self.menuIsVertical) {
-        x = self.menuPosition == HMSideMenuPositionRight ? self.superview.frame.size.width : 0 - self.menuWidth;
-        y  = (self.superview.frame.size.height / 2) - (self.menuHeight / 2);
+        x = self.menuPosition == HMSideMenuPositionRight ? superViewWidth : 0 - self.menuWidth;
+        y  = (superViewHeight / 2) - (self.menuHeight / 2);
         itemInitialX = self.menuWidth / 2;
     } else {
-        x = self.superview.frame.size.width / 2 - (self.menuWidth / 2);
-        y = self.menuPosition == HMSideMenuPositionTop ? 0 - self.menuHeight : self.superview.frame.size.height;
+        x = superViewWidth / 2 - (self.menuWidth / 2);
+        y = self.menuPosition == HMSideMenuPositionTop ? 0 - self.menuHeight : superViewHeight;
     }
     
     self.frame = CGRectMake(x, y, self.menuWidth, self.menuHeight);;
     
-    // Layout the items
-    [self.items enumerateObjectsUsingBlock:^(UIView *item, NSUInteger idx, BOOL *stop) {
-        if (self.menuIsVertical)
-            [item setCenter:CGPointMake(itemInitialX, (idx * biggestHeight) + (idx * self.itemSpacing) + (biggestHeight / 2))];
-        else
-            [item setCenter:CGPointMake((idx * biggestWidth) + (idx * self.itemSpacing) + (biggestWidth / 2), self.menuHeight / 2)];
-    }];
+    if (!_isLayoutItems) {
+        // Layout the items
+        [self.items enumerateObjectsUsingBlock:^(UIView *item, NSUInteger idx, BOOL *stop) {
+            if (self.menuIsVertical)
+                [item setCenter:CGPointMake(itemInitialX, (idx * biggestHeight) + (idx * self.itemSpacing) + (biggestHeight / 2))];
+            else
+                [item setCenter:CGPointMake((idx * biggestWidth) + (idx * self.itemSpacing) + (biggestWidth / 2), self.menuHeight / 2)];
+        }];
+        _isLayoutItems = TRUE;
+    }
 }
 
 #pragma mark - Animation
