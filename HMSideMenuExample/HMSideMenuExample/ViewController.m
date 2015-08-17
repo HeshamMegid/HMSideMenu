@@ -60,6 +60,15 @@
     self.sideMenu = [[HMSideMenu alloc] initWithItems:@[twitterItem, emailItem, facebookItem, browserItem]];
     [self.sideMenu setItemSpacing:5.0f];
     [self.view addSubview:self.sideMenu];
+
+    UIScreenEdgePanGestureRecognizer *rightEdgeGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightEdgeGesture:)];
+    rightEdgeGesture.edges = UIRectEdgeRight;
+    rightEdgeGesture.delegate = self;
+    rightEdgeGesture.maximumNumberOfTouches=1;
+    [self.view addGestureRecognizer:rightEdgeGesture];
+    
+    // Store the center, so we can animate back to it after a slide
+    _centerX = self.view.bounds.size.width / 2;
 }
 
 - (IBAction)toggleMenu:(id)sender {
@@ -69,4 +78,21 @@
         [self.sideMenu open];
 }
 
+- (void)handleRightEdgeGesture:(UIScreenEdgePanGestureRecognizer *)gesture {
+    // Get the current view we are touching
+    if (gesture.state == UIGestureRecognizerStateEnded)
+    {
+    if (self.sideMenu.isOpen)
+        [self.sideMenu close];
+    else
+        [self.sideMenu open];
+    }
+}
+//4. Conform to the UIGestureRecognizerDelegate delegate protocol (optional). See #1 above on how to conform to the delegate in the .m file using the Class Extension syntax.
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    // You can customize the way in which gestures can work
+    // Enabling multiple gestures will allow all of them to work together, otherwise only the topmost view's gestures will work (i.e. PanGesture view on bottom)
+    return YES;
+}
 @end
